@@ -34,15 +34,14 @@ public class MessagesReceiver {
     private ExecutorService threadPool = Executors.newCachedThreadPool();
 
     @RabbitListener(queues = "avatar-requests")
-    public void return_avatar(byte[] userIdAsBytes) {
-        String userId = new String(userIdAsBytes);
+    public void return_avatar(String userId) {
         Runnable task = () -> {
             String catUrl = restTemplate.getForEntity(catApiUrl, CatDto[].class)
                     .getBody()[0]
                     .getUrl();
             AvatarResponseDto response = AvatarResponseDto.builder()
                     .userId(userId)
-                    .CatUrl(catUrl)
+                    .catUrl(catUrl)
                     .build();
             rabbitTemplate.convertAndSend(rabbitExchange, "avatar-response", response);
         };

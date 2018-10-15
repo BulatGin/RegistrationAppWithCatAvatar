@@ -16,5 +16,5 @@ import java.io.Serializable;
 @NoArgsConstructor
 public class AvatarResponseDto implements Serializable {
     private String userId;
-    private String CatUrl;
+    private String catUrl;
 }

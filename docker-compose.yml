@@ -1,0 +1,68 @@
+version: '3.1'
+
+services:
+  service-registry:
+    build: ServiceRegistry/
+    ports: 
+      - "9000:9000"
+    restart: always
+  
+  rabbitmq:
+    build: RabbitMQ/
+    ports: 
+      - "15673:15672"
+    volumes:
+      - rabbitmq-data:/var/lib/rabbitmq
+      - rabbitmq-logs:/var/log/rabbitmq
+    restart: always
+
+  postgresql:
+    image: postgres:10-alpine
+    ports:
+      - "5433:5432"
+    environment:
+      - POSTGRES_USER=postgres
+      - POSTGRES_PASSWORD=postgres
+      - POSTGRES_DB=microservices_db
+    volumes:
+      - db:/var/lib/postgresql/data
+    restart: always
+
+  cat-service:
+    build: CatService/
+    depends_on:
+      - service-registry
+      - rabbitmq
+    restart: always
+
+  users-service:
+    build: UsersService/
+    depends_on:
+      - service-registry
+      - rabbitmq
+      - postgresql
+    restart: always
+
+  gateway-service:
+    build: GatewayService/
+    depends_on:
+     - service-registry
+    ports:
+      - "8081:8081"
+    restart: always
+
+  ui-server:
+    build: UIServer/
+    depends_on:
+      - rabbitmq
+    ports:
+      - "8080:8080"
+    restart: always
+
+volumes:
+  db:
+    driver: local
+  rabbitmq-data:
+    driver: local
+  rabbitmq-logs:
+    driver: local

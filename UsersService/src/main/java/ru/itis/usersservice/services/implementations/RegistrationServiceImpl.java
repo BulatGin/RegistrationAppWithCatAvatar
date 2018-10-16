@@ -30,6 +30,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 .name(userDto.getName())
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
+                .avatar(userDto.getAvatar())
                 .build();
         userRepository.save(user);
     }

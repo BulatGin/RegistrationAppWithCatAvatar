@@ -14,6 +14,6 @@ import java.io.Serializable;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class RegistrationResponse implements Serializable{
+public class RegistrationResponseDto implements Serializable{
     private Boolean success;
 }

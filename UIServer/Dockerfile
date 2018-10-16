@@ -6,5 +6,6 @@ COPY src ./src
 RUN mvn clean package
 
 FROM openjdk:8-jre-alpine
-COPY --from=build /app/target/cat-service-0.0.1-SNAPSHOT.jar /app/app.jar
+EXPOSE 8080
+COPY --from=build /app/target/ui-server-0.0.1-SNAPSHOT.jar /app/app.jar
 ENTRYPOINT ["java", "-Dspring.profiles.active=docker", "-jar", "/app/app.jar"]

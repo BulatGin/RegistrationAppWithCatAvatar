@@ -17,6 +17,7 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Primary;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
+import org.springframework.web.client.RestTemplate;
 
 /**
  * @author Bulat Giniyatullin
@@ -28,6 +29,11 @@ public class UIServerApplication extends SpringBootServletInitializer
         implements RabbitListenerConfigurer {
     @Value("${rabbit.exchange}")
     private String rabbitDefaultExchange;
+
+    @Bean
+    public RestTemplate restTemplate() {
+        return new RestTemplate();
+    }
 
     @Bean
     public RabbitTemplate rabbitTemplate(final ConnectionFactory connectionFactory) {

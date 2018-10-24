@@ -32,4 +32,10 @@ public class User {
 
     @Column(nullable = false)
     private String avatar;
+
+    @Enumerated(value = EnumType.STRING)
+    private Role role = Role.USER;
+
+    @Column(nullable = false)
+    private boolean isBanned = false;
 }

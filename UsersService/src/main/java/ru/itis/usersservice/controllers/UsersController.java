@@ -1,9 +1,8 @@
 package ru.itis.usersservice.controllers;
 
+import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.usersservice.models.User;
 import ru.itis.usersservice.services.interfaces.UsersService;
 
@@ -28,4 +27,10 @@ public class UsersController {
     public List<User> getAllUsers() {
         return usersService.getAll();
     }
+
+    @RabbitListener(queues = "users_ban")
+    public void banUser(Long userId) {
+        usersService.banUser(userId);
+    }
+
 }

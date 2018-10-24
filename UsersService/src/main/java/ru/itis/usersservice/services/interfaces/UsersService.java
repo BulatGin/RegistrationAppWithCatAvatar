@@ -11,4 +11,6 @@ import java.util.List;
 
 public interface UsersService {
     List<User> getAll();
+
+    void banUser(Long userId);
 }

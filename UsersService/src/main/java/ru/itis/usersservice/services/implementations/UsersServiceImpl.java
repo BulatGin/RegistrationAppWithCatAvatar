@@ -28,4 +28,13 @@ public class UsersServiceImpl implements UsersService {
     public List<User> getAll() {
         return userRepository.findAll();
     }
+
+    @Override
+    public void banUser(Long userId) {
+        User user = userRepository.findById(userId).orElseThrow(() ->
+                new IllegalArgumentException("Illegal user id"));
+
+        user.setBanned(true);
+        userRepository.save(user);
+    }
 }

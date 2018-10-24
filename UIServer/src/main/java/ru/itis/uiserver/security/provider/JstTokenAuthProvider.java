@@ -4,18 +4,17 @@ import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.MalformedJwtException;
 import io.jsonwebtoken.SignatureException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.authentication.AuthenticationProvider;
 import org.springframework.security.authentication.BadCredentialsException;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Component;
 import ru.itis.uiserver.security.authentication.JwtTokenAuthentication;
 
-import javax.security.auth.message.AuthException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -28,6 +27,9 @@ import java.util.stream.Collectors;
 public class JstTokenAuthProvider implements AuthenticationProvider {
     @Value("${jwt.secret}")
     private String secret;
+
+    @Autowired
+    private StringRedisTemplate redisTemplate;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -42,6 +44,10 @@ public class JstTokenAuthProvider implements AuthenticationProvider {
         } catch (MalformedJwtException | SignatureException e) {
             e.printStackTrace();
             throw new BadCredentialsException("Invalid token");
+        }
+
+        if (redisTemplate.hasKey(claims.getSubject())) {
+            throw new BadCredentialsException("User is banned");
         }
 
         List<String> authorities = (List<String>) claims.get("roles");

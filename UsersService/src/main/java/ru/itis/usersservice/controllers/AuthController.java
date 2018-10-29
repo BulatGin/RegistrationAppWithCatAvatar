@@ -1,8 +1,8 @@
 package ru.itis.usersservice.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import ru.itis.usersservice.dto.TokenDto;
 import ru.itis.usersservice.dto.UserCredentialsDto;
@@ -19,7 +19,7 @@ public class AuthController {
     AuthService authService;
 
     @PostMapping("/auth")
-    public TokenDto login(@ModelAttribute UserCredentialsDto userCredentials) {
+    public TokenDto login(@RequestBody UserCredentialsDto userCredentials) {
         return authService.authorize(userCredentials);
     }
 }

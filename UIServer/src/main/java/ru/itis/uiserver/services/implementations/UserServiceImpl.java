@@ -7,6 +7,8 @@ import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 import ru.itis.uiserver.services.interfaces.UserService;
 
+import java.util.concurrent.TimeUnit;
+
 /**
  * @author Bulat Giniyatullin
  * 24 October 2018
@@ -25,6 +27,10 @@ public class UserServiceImpl implements UserService {
     @Override
     public void addUserToBlackList(Long userId) {
         valueOperations = redisTemplate.opsForValue();
-        valueOperations.set(String.valueOf(userId), String.valueOf(jwtExpiration));
+        valueOperations.set(
+                String.valueOf(userId),
+                String.valueOf(jwtExpiration),
+                jwtExpiration,
+                TimeUnit.SECONDS);
     }
 }

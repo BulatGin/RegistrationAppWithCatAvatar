@@ -41,7 +41,7 @@ public class JstTokenAuthProvider implements AuthenticationProvider {
                     .setSigningKey(secret)
                     .parseClaimsJws((String) jwtTokenAuthentication.getCredentials())
                     .getBody();
-        } catch (MalformedJwtException | SignatureException e) {
+        } catch (MalformedJwtException | SignatureException | IllegalArgumentException e) {
             e.printStackTrace();
             throw new BadCredentialsException("Invalid token");
         }

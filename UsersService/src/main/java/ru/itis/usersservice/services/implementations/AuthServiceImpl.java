@@ -51,6 +51,10 @@ public class AuthServiceImpl implements AuthService {
                 token = null;
                 errorMsg = "Wrong credentials";
                 success = false;
+            } else if (user.isBanned()) {
+                token = null;
+                errorMsg = "User banned";
+                success = false;
             } else {
                 Long now = System.currentTimeMillis();
                 token = Jwts.builder()

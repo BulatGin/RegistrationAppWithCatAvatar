@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Auth Page</title>
+    <script src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    <link rel="stylesheet" href="css/main.css">
+    <script src="js/auth.js"></script>
+</head>
+<body>
+    <div id="main-container">
+        <div id="fail-alert" class="alert alert-danger">
+            <a close="fail-alert" href="" class="close" aria-label="close">&times;</a>
+            <span id="fail-alert-msg"></span>
+        </div>
+
+        <h2 style="margin-bottom: 30px">Авторизация</h2>
+        <form id="auth-form">
+            <input type="email" id="email" placeholder="Enter your email" class="form-control">
+            <input type="password" id="password" placeholder="Enter your password" class="form-control">
+            <button id="auth" class="btn btn-primary">Войти</button>
+        </form>
+    </div>
+</body>
+</html>

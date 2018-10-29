@@ -5,12 +5,16 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 import ru.itis.uiserver.dto.TokenDto;
 import ru.itis.uiserver.dto.UserCredentialsDto;
+
+import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
 
 /**
  * @author Bulat Giniyatullin
@@ -25,8 +29,13 @@ public class AuthController {
     @Value("${api.auth}")
     private String authUrl;
 
+    @GetMapping("/auth")
+    public void authPage(HttpServletResponse response) throws IOException {
+        response.sendRedirect("/auth.html");
+    }
+
     @PostMapping("/auth")
-    public TokenDto authenticate(@ModelAttribute UserCredentialsDto userCredentials) {
+    public TokenDto authenticate(@RequestBody UserCredentialsDto userCredentials) {
         return restTemplate.exchange(
                 authUrl,
                 HttpMethod.POST,

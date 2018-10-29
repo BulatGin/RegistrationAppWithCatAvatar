@@ -1,6 +1,7 @@
 #main-container {
     margin: 100px auto auto auto;
     width: 500px;
+    text-align: center;
 }
 
 input {
@@ -25,4 +26,8 @@ button {
     top: 0;
     width: 500px;
     display: none;
+}
+
+#auth {
+    width: 200px;
 }

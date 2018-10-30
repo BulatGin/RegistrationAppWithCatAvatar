@@ -32,7 +32,7 @@ public class UsersController {
     private String usersApiUrl;
 
     @GetMapping("/users")
-    @PreAuthorize("hasAuthority('ADMIN')")
+    @PreAuthorize("hasAuthority('USER')")
     @ResponseBody
     public String getAllUsers() {
         String usersJson = restTemplate.getForEntity(usersApiUrl, String.class).getBody();

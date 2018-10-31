@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.usersservice.dto.UserDto;
 import ru.itis.usersservice.models.User;
+import ru.itis.usersservice.models.Role;
 import ru.itis.usersservice.repositories.UserRepository;
 import ru.itis.usersservice.services.interfaces.RegistrationService;
 
@@ -31,6 +32,7 @@ public class RegistrationServiceImpl implements RegistrationService {
                 .email(userDto.getEmail())
                 .password(userDto.getPassword())
                 .avatar(userDto.getAvatar())
+                .role(Role.USER)
                 .build();
         userRepository.save(user);
     }

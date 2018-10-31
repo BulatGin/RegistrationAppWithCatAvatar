@@ -122,7 +122,7 @@
         {  
             "source":"cat-registration-app",
             "vhost":"/",
-            "destination":"users_ban",
+            "destination":"users-ban",
             "destination_type":"queue",
             "routing_key":"ban_user",
             "arguments":{  

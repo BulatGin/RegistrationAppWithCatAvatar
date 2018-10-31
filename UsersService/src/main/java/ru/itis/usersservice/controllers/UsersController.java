@@ -28,7 +28,7 @@ public class UsersController {
         return usersService.getAll();
     }
 
-    @RabbitListener(queues = "users_ban")
+    @RabbitListener(queues = "users-ban")
     public void banUser(Long userId) {
         usersService.banUser(userId);
     }
